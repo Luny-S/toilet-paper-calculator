@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Toilet Paper Score Calculator</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Toilet Paper Score Calculator</h1>
+        
+        <div class="form-group">
+            <label for="sheets">Number of Sheets:</label>
+            <input type="number" class="form-control" id="sheets" placeholder="Enter number of sheets" onblur="calculateScore()">
+        </div>
+        
+        <div class="form-group">
+            <label for="layers">Number of Layers:</label>
+            <input type="number" class="form-control" id="layers" placeholder="Enter number of layers" onblur="calculateScore()">
+        </div>
+        
+        <!-- Toggle Section Button -->
+        <button class="btn btn-secondary mb-3" onclick="toggleSection()">Switch Input Section</button>
+        
+        <!-- Price Input Section -->
+        <div class="form-group" id="priceInputSection">
+            <label for="price">Price of the Roll (PLN):</label>
+            <input type="number" class="form-control" id="price" placeholder="Enter price of the roll" onblur="calculateScore()">
+        </div>
+        
+        <!-- Number of Rolls and Price for Package Section -->
+        <div class="form-group" id="packageInputSection" style="display: none;">
+            <label for="numRolls">Number of Rolls:</label>
+            <input type="number" class="form-control" id="numRolls" placeholder="Enter number of rolls" onblur="calculateScore()">
+            
+            <label for="priceForPackage">Price for Package (PLN):</label>
+            <input type="number" class="form-control" id="priceForPackage" placeholder="Enter price for package" onblur="calculateScore()">
+        </div>
+        
+        <button class="btn btn-primary" onclick="calculateScore()">Calculate Score</button>
+        
+        <p id="score" class="mt-3"></p>
+        <p id="scoreNote" class="mt-2 text-muted"></p>
+    </div>
+    
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        function toggleSection() {
+            var priceInputSection = document.getElementById("priceInputSection");
+            var packageInputSection = document.getElementById("packageInputSection");
+            
+            if (priceInputSection.style.display !== "none") {
+                priceInputSection.style.display = "none";
+                packageInputSection.style.display = "block";
+            } else {
+                priceInputSection.style.display = "block";
+                packageInputSection.style.display = "none";
+            }
+            
+            // Clear previous score and note when toggling sections
+            document.getElementById("score").textContent = "";
+            document.getElementById("scoreNote").textContent = "";
+        }
+        
+        function calculateScore() {
+            var sheets = parseFloat(document.getElementById("sheets").value);
+            var layers = parseFloat(document.getElementById("layers").value);
+            var score;
+            var explanation;
+            
+            if (document.getElementById("priceInputSection").style.display !== "none") {
+                var price = parseFloat(document.getElementById("price").value);
+                
+                if (isNaN(price)) {
+                    document.getElementById("score").textContent = "Please enter valid values for all parameters.";
+                } else {
+                    score = price / (sheets * layers);
+                    explanation = "Score = Price / (Number of Sheets * Number of Layers)";
+                }
+            } else if (document.getElementById("packageInputSection").style.display !== "none") {
+                var numRolls = parseFloat(document.getElementById("numRolls").value);
+                var priceForPackage = parseFloat(document.getElementById("priceForPackage").value);
+                
+                if (isNaN(numRolls) || isNaN(priceForPackage)) {
+                    document.getElementById("score").textContent = "Please enter valid values for all parameters.";
+                } else {
+                    score = priceForPackage / (numRolls * sheets * layers);
+                    explanation = "Score = Price for Package / (Number of Rolls * Number of Sheets * Number of Layers)";
+                }
+            }
+            
+            if (score !== undefined) {
+                document.getElementById("score").textContent = "Score: " + score.toFixed(4) + " PLN";
+                document.getElementById("scoreNote").textContent = explanation;
+            }
+        }
+    </script>
+</body>
+</html>
