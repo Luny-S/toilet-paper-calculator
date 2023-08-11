@@ -17,8 +17,8 @@ The toilet paper score is a simple metric that aims to help consumers make infor
 
 1. Enter the **Number of Sheets** and **Number of Layers** of the toilet paper roll.
 2. Toggle between two input sections:
-   - **Price Input Section**: Enter the price of the roll in PLN (Polish Zloty).
-   - **Number of Rolls and Price for Package Section**: Enter the number of rolls and the price for the package in PLN.
+   - **Price Input Section**: Enter the price of the roll in local currency.
+   - **Number of Rolls and Price for Package Section**: Enter the number of rolls and the price for the package in local currency.
 3. Click the **Calculate Score** button to see the calculated toilet paper score.
 
 ## Contributions

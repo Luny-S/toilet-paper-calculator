@@ -24,7 +24,7 @@
         
         <!-- Price Input Section -->
         <div class="form-group" id="priceInputSection">
-            <label for="price">Price of the Roll (PLN):</label>
+            <label for="price">Price of the Roll:</label>
             <input type="number" class="form-control" id="price" placeholder="Enter price of the roll" onblur="calculateScore()">
         </div>
         
@@ -33,7 +33,7 @@
             <label for="numRolls">Number of Rolls:</label>
             <input type="number" class="form-control" id="numRolls" placeholder="Enter number of rolls" onblur="calculateScore()">
             
-            <label for="priceForPackage">Price for Package (PLN):</label>
+            <label for="priceForPackage">Price for Package:</label>
             <input type="number" class="form-control" id="priceForPackage" placeholder="Enter price for package" onblur="calculateScore()">
         </div>
         
@@ -49,6 +49,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <script>
+		const userLocale = navigator.language;
+		const numberFormat = new Intl.NumberFormat(userLocale, {
+			style: 'currency',
+			currency: 'PLN',
+			maximumSignificantDigits: 4
+		});
+
         function toggleSection() {
             var priceInputSection = document.getElementById("priceInputSection");
             var packageInputSection = document.getElementById("packageInputSection");
@@ -94,7 +101,7 @@
             }
             
             if (score !== undefined) {
-                document.getElementById("score").textContent = "Score: " + score.toFixed(4) + " PLN";
+                document.getElementById("score").textContent = "Score: " + numberFormat.format(score);
                 document.getElementById("scoreNote").textContent = explanation;
             }
         }
